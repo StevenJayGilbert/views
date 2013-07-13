@@ -154,7 +154,6 @@ class views_handler_field extends views_handler {
         'make_link' => array('default' => FALSE),
         'path' => array('default' => '', 'translatable' => TRUE),
         'alt' => array('default' => '', 'translatable' => TRUE),
-        'rel' => array('default' => ''),
         'link_class' => array('default' => ''),
         'prefix' => array('default' => '', 'translatable' => TRUE),
         'suffix' => array('default' => '', 'translatable' => TRUE),
@@ -249,16 +248,6 @@ class views_handler_field extends views_handler {
           'edit-options-alter-make-link' => array(1)
         ),
       );
-      $form['alter']['rel'] = array(
-        '#title' => t('Rel Text'),
-        '#type' => 'textfield',
-        '#default_value' => $this->options['alter']['rel'],
-        '#description' => t('Include Rel attribute for use in lightbox2 or other javascript utility.'),
-        '#process' => array('views_process_dependency'),
-        '#dependency' => array(
-          'edit-options-alter-make-link' => array(1)
-        ),
-      );      
       $form['alter']['prefix'] = array(
         '#title' => t('Prefix text'),
         '#type' => 'textfield',
@@ -609,10 +598,6 @@ class views_handler_field extends views_handler {
     if ($class) {
       $options['attributes']['class'] = $class;
     }
-    
-    if (!empty($alter['rel']) && $rel = strtr($alter['rel'], $tokens)) {
-      $options['attributes']['rel'] = $rel;
-    }    
 
     $target = check_plain(trim(strtr($alter['target'],$tokens)));
     if (!empty($target)) {
